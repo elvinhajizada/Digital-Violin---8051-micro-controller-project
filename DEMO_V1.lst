@@ -1,0 +1,1006 @@
+DEMO_V1                                                                                                                 PAGE 1
+                         1     ORG 0
+0000 758901              2             MOV TMOD, #01H
+0003 B166                3             acall   CONFIGURE_LCD
+                         4
+                         5     KEYBOARD_LOOP:
+0005 B1A6                6             acall KEYBOARD
+                         7             ;now, A has the key pressed
+                         8
+0007 110B                9             ACALL CHECK_NOTE
+0009 80FA               10             sjmp KEYBOARD_LOOP
+                        11
+                        12     CHECK_NOTE:
+000B B47F03             13             CJNE A, #01111111B, OK
+000E 020565             14             LJMP RETURN
+0011 75F007             15     OK:     MOV B, #7
+0014 84                 16             DIV AB
+0015 B40004             17             CJNE A, #0, CHECK1
+0018 E5F0               18             MOV A,B
+001A 8015               19             SJMP ROW0
+001C B40105             20     CHECK1: CJNE A, #1, CHECK2
+001F E5F0               21             MOV A,B
+0021 02017E             22             LJMP ROW1
+0024 B40205             23     CHECK2: CJNE A, #2, CHECK3
+0027 E5F0               24             MOV A,B
+0029 0202CB             25             LJMP ROW2
+002C E5F0               26     CHECK3: MOV A,B
+002E 020418             27             LJMP ROW3
+                        28
+0031 B4002D             29     ROW0:   CJNE A, #0, CHECK01
+0034 FB                 30             MOV R3,A
+0035 758A45             31     BACK00: MOV TL0, #45H
+0038 758CFD             32             MOV TH0, #0FDH
+003B D2B0               33             SETB P3.0
+003D D28C               34             SETB TR0
+003F 308DFD             35             JNB TF0, $
+0042 C2B0               36             CLR P3.0
+0044 C28C               37             CLR TR0
+0046 C28D               38             CLR TF0
+0048 758A56             39             MOV TL0, #56H
+004B 758CFD             40             MOV TH0, #0FDH
+004E D28C               41             SETB TR0
+0050 B1A6               42             ACALL keyboard
+0052 308DFD             43             JNB TF0, $
+0055 C28C               44             CLR TR0
+0057 C28D               45             CLR TF0
+0059 B50302             46             CJNE A, 3, HERE00
+005C 80D7               47             SJMP BACK00
+005E 02000B             48     HERE00: LJMP CHECK_NOTE
+                        49
+0061 B4012D             50     CHECK01:CJNE A, #1, CHECK02
+0064 FB                 51             MOV R3,A
+0065 758A6D             52     BACK01: MOV TL0, #6DH
+0068 758CFD             53             MOV TH0, #0FDH
+006B D2B0               54             SETB P3.0
+006D D28C               55             SETB TR0
+006F 308DFD             56             JNB TF0, $
+0072 C2B0               57             CLR P3.0
+0074 C28C               58             CLR TR0
+0076 C28D               59             CLR TF0
+0078 758A7E             60             MOV TL0, #7EH
+007B 758CFD             61             MOV TH0, #0FDH
+007E D28C               62             SETB TR0
+0080 B1A6               63             ACALL keyboard
+0082 308DFD             64             JNB TF0, $
+0085 C28C               65             CLR TR0
+0087 C28D               66             CLR TF0
+0089 B50302             67             CJNE A, 3, HERE01
+008C 80D7               68             SJMP BACK01
+008E 02000B             69     HERE01: LJMP CHECK_NOTE
+                        70
+0091 B4022D             71     CHECK02:CJNE A, #2, CHECK03
+0094 FB                 72             MOV R3,A
+0095 758A91             73     BACK02: MOV TL0, #91H
+0098 758CFD             74             MOV TH0, #0FDH
+009B D2B0               75             SETB P3.0
+009D D28C               76             SETB TR0
+009F 308DFD             77             JNB TF0, $
+00A2 C2B0               78             CLR P3.0
+00A4 C28C               79             CLR TR0
+00A6 C28D               80             CLR TF0
+00A8 758AA2             81             MOV TL0, #0A2H
+00AB 758CFD             82             MOV TH0, #0FDH
+00AE D28C               83             SETB TR0
+00B0 B1A6               84             ACALL keyboard
+00B2 308DFD             85             JNB TF0, $
+00B5 C28C               86             CLR TR0
+00B7 C28D               87             CLR TF0
+00B9 B50302             88             CJNE A, 3, HERE02
+00BC 80D7               89             SJMP BACK02
+00BE 02000B             90     HERE02: LJMP CHECK_NOTE
+                        91
+00C1 B4032D             92     CHECK03:CJNE A, #3, CHECK04
+00C4 FB                 93             MOV R3,A
+00C5 758AB4             94     BACK03: MOV TL0, #0B4H
+00C8 758CFD             95             MOV TH0, #0FDH
+00CB D2B0               96             SETB P3.0
+00CD D28C               97             SETB TR0
+00CF 308DFD             98             JNB TF0, $
+00D2 C2B0               99             CLR P3.0
+00D4 C28C              100             CLR TR0
+00D6 C28D              101             CLR TF0
+00D8 758AC5            102             MOV TL0, #0C5H
+00DB 758CFD            103             MOV TH0, #0FDH
+00DE D28C              104             SETB TR0
+00E0 B1A6              105             ACALL keyboard
+00E2 308DFD            106             JNB TF0, $
+00E5 C28C              107             CLR TR0
+00E7 C28D              108             CLR TF0
+00E9 B50302            109             CJNE A, 3, HERE03
+00EC 80D7              110             SJMP BACK03
+00EE 02000B            111     HERE03: LJMP CHECK_NOTE
+                       112
+00F1 B4042D            113     CHECK04:CJNE A, #4, CHECK05
+00F4 FB                114             MOV R3,A
+00F5 758AD5            115     BACK04: MOV TL0, #0D5H
+00F8 758CFD            116             MOV TH0, #0FDH
+00FB D2B0              117             SETB P3.0
+00FD D28C              118             SETB TR0
+00FF 308DFD            119             JNB TF0, $
+0102 C2B0              120             CLR P3.0
+0104 C28C              121             CLR TR0
+0106 C28D              122             CLR TF0
+0108 758AE6            123             MOV TL0, #0E6H
+010B 758CFD            124             MOV TH0, #0FDH
+010E D28C              125             SETB TR0
+0110 B1A6              126             ACALL keyboard
+0112 308DFD            127             JNB TF0, $
+0115 C28C              128             CLR TR0
+0117 C28D              129             CLR TF0
+0119 B50302            130             CJNE A, 3, HERE04
+011C 80D7              131             SJMP BACK04
+011E 02000B            132     HERE04: LJMP CHECK_NOTE
+                       133
+0121 B4052D            134     CHECK05:CJNE A, #5, CHECK06
+0124 FB                135             MOV R3,A
+0125 758AF4            136     BACK05: MOV TL0, #0F4H
+0128 758CFD            137             MOV TH0, #0FDH
+012B D2B0              138             SETB P3.0
+012D D28C              139             SETB TR0
+012F 308DFD            140             JNB TF0, $
+0132 C2B0              141             CLR P3.0
+0134 C28C              142             CLR TR0
+0136 C28D              143             CLR TF0
+0138 758A05            144             MOV TL0, #05H
+013B 758CFE            145             MOV TH0, #0FEH
+013E D28C              146             SETB TR0
+0140 B1A6              147             ACALL keyboard
+0142 308DFD            148             JNB TF0, $
+0145 C28C              149             CLR TR0
+0147 C28D              150             CLR TF0
+0149 B50302            151             CJNE A, 3, HERE05
+014C 80D7              152             SJMP BACK05
+014E 02000B            153     HERE05: LJMP CHECK_NOTE
+                       154
+0151 FB                155     CHECK06:MOV R3,A
+0152 758A12            156     BACK06: MOV TL0, #12H
+0155 758CFE            157             MOV TH0, #0FEH
+0158 D2B0              158             SETB P3.0
+015A D28C              159             SETB TR0
+015C 308DFD            160             JNB TF0, $
+015F C2B0              161             CLR P3.0
+0161 C28C              162             CLR TR0
+0163 C28D              163             CLR TF0
+0165 758A23            164             MOV TL0, #23H
+0168 758CFE            165             MOV TH0, #0FEH
+016B D28C              166             SETB TR0
+016D B1A6              167             ACALL keyboard
+016F 308DFD            168             JNB TF0, $
+0172 C28C              169             CLR TR0
+0174 C28D              170             CLR TF0
+0176 B50302            171             CJNE A, 3, HERE06
+0179 80D7              172             SJMP BACK06
+017B 02000B            173     HERE06: LJMP CHECK_NOTE
+                       174
+                       175
+                       176     ROW1:
+017E B4002D            177             CJNE A, #0, CHECK11
+0181 FB                178             MOV R3,A
+0182 758AE9            179     BACK10: MOV TL0, #0E9H
+0185 758CFB            180             MOV TH0, #0FBH
+0188 D2B0              181             SETB P3.0
+018A D28C              182             SETB TR0
+018C 308DFD            183             JNB TF0, $
+018F C2B0              184             CLR P3.0
+0191 C28C              185             CLR TR0
+0193 C28D              186             CLR TF0
+0195 758A03            187             MOV TL0, #03H
+0198 758CFC            188             MOV TH0, #0FCH
+019B D28C              189             SETB TR0
+019D B1A6              190             ACALL keyboard
+019F 308DFD            191             JNB TF0, $
+01A2 C28C              192             CLR TR0
+01A4 C28D              193             CLR TF0
+01A6 B50302            194             CJNE A, 3, HERE10
+01A9 80D7              195             SJMP BACK10
+01AB 02000B            196     HERE10: LJMP CHECK_NOTE
+                       197
+01AE B4012D            198     CHECK11:CJNE A, #1, CHECK12
+01B1 FB                199             MOV R3,A
+01B2 758A24            200     BACK11: MOV TL0, #24H
+01B5 758CFC            201             MOV TH0, #0FCH
+01B8 D2B0              202             SETB P3.0
+01BA D28C              203             SETB TR0
+01BC 308DFD            204             JNB TF0, $
+01BF C2B0              205             CLR P3.0
+01C1 C28C              206             CLR TR0
+01C3 C28D              207             CLR TF0
+01C5 758A40            208             MOV TL0, #40H
+01C8 758CFC            209             MOV TH0, #0FCH
+01CB D28C              210             SETB TR0
+01CD B1A6              211             ACALL keyboard
+01CF 308DFD            212             JNB TF0, $
+01D2 C28C              213             CLR TR0
+01D4 C28D              214             CLR TF0
+01D6 B50302            215             CJNE A, 3, HERE11
+01D9 80D7              216             SJMP BACK11
+01DB 02000B            217     HERE11: LJMP CHECK_NOTE
+                       218
+01DE B4022D            219     CHECK12:CJNE A, #2, CHECK13
+01E1 FB                220             MOV R3,A
+01E2 758A5B            221     BACK12: MOV TL0, #5BH
+01E5 758CFC            222             MOV TH0, #0FCH
+01E8 D2B0              223             SETB P3.0
+01EA D28C              224             SETB TR0
+01EC 308DFD            225             JNB TF0, $
+01EF C2B0              226             CLR P3.0
+01F1 C28C              227             CLR TR0
+01F3 C28D              228             CLR TF0
+01F5 758A7A            229             MOV TL0, #7AH
+01F8 758CFC            230             MOV TH0, #0FCH
+01FB D28C              231             SETB TR0
+01FD B1A6              232             ACALL keyboard
+01FF 308DFD            233             JNB TF0, $
+0202 C28C              234             CLR TR0
+0204 C28D              235             CLR TF0
+0206 B50302            236             CJNE A, 3, HERE12
+0209 80D7              237             SJMP BACK12
+020B 02000B            238     HERE12: LJMP CHECK_NOTE
+                       239
+020E B4032D            240     CHECK13:CJNE A, #3, CHECK14
+0211 FB                241             MOV R3,A
+0212 758A8F            242     BACK13: MOV TL0, #8FH
+0215 758CFC            243             MOV TH0, #0FCH
+0218 D2B0              244             SETB P3.0
+021A D28C              245             SETB TR0
+021C 308DFD            246             JNB TF0, $
+021F C2B0              247             CLR P3.0
+0221 C28C              248             CLR TR0
+0223 C28D              249             CLR TF0
+0225 758AB4            250             MOV TL0, #0B4H
+0228 758CFC            251             MOV TH0, #0FCH
+022B D28C              252             SETB TR0
+022D B1A6              253             ACALL keyboard
+022F 308DFD            254             JNB TF0, $
+0232 C28C              255             CLR TR0
+0234 C28D              256             CLR TF0
+0236 B50302            257             CJNE A, 3, HERE13
+0239 80D7              258             SJMP BACK13
+023B 02000B            259     HERE13: LJMP CHECK_NOTE
+                       260
+023E B4042D            261     CHECK14:CJNE A, #4, CHECK15
+0241 FB                262             MOV R3,A
+0242 758AC1            263     BACK14: MOV TL0, #0C1H
+0245 758CFC            264             MOV TH0, #0FCH
+0248 D2B0              265             SETB P3.0
+024A D28C              266             SETB TR0
+024C 308DFD            267             JNB TF0, $
+024F C2B0              268             CLR P3.0
+0251 C28C              269             CLR TR0
+0253 C28D              270             CLR TF0
+0255 758AE8            271             MOV TL0, #0E8H
+0258 758CFC            272             MOV TH0, #0FCH
+025B D28C              273             SETB TR0
+025D B1A6              274             ACALL keyboard
+025F 308DFD            275             JNB TF0, $
+0262 C28C              276             CLR TR0
+0264 C28D              277             CLR TF0
+0266 B50302            278             CJNE A, 3, HERE14
+0269 80D7              279             SJMP BACK14
+026B 02000B            280     HERE14: LJMP CHECK_NOTE
+                       281
+026E B4052D            282     CHECK15:CJNE A, #5, CHECK16
+0271 FB                283             MOV R3,A
+0272 758AF0            284     BACK15: MOV TL0, #0F0H
+0275 758CFC            285             MOV TH0, #0FCH
+0278 D2B0              286             SETB P3.0
+027A D28C              287             SETB TR0
+027C 308DFD            288             JNB TF0, $
+027F C2B0              289             CLR P3.0
+0281 C28C              290             CLR TR0
+0283 C28D              291             CLR TF0
+0285 758A19            292             MOV TL0, #19H
+0288 758CFD            293             MOV TH0, #0FDH
+028B D28C              294             SETB TR0
+028D B1A6              295             ACALL keyboard
+028F 308DFD            296             JNB TF0, $
+0292 C28C              297             CLR TR0
+0294 C28D              298             CLR TF0
+0296 B50302            299             CJNE A, 3, HERE15
+0299 80D7              300             SJMP BACK15
+029B 02000B            301     HERE15: LJMP CHECK_NOTE
+                       302
+029E FB                303     CHECK16:MOV R3,A
+029F 758A1C            304     BACK16: MOV TL0, #1CH
+02A2 758CFD            305             MOV TH0, #0FDH
+02A5 D2B0              306             SETB P3.0
+02A7 D28C              307             SETB TR0
+02A9 308DFD            308             JNB TF0, $
+02AC C2B0              309             CLR P3.0
+02AE C28C              310             CLR TR0
+02B0 C28D              311             CLR TF0
+02B2 758A45            312             MOV TL0, #45H
+02B5 758CFD            313             MOV TH0, #0FDH
+02B8 D28C              314             SETB TR0
+02BA B1A6              315             ACALL keyboard
+02BC 308DFD            316             JNB TF0, $
+02BF C28C              317             CLR TR0
+02C1 C28D              318             CLR TF0
+02C3 B50302            319             CJNE A, 3, HERE16
+02C6 80D7              320             SJMP BACK16
+02C8 02000B            321     HERE16: LJMP CHECK_NOTE
+                       322
+                       323
+                       324     ROW2:
+02CB B4002D            325             CJNE A, #0, CHECK21
+02CE FB                326             MOV R3,A
+02CF 758ADF            327     BACK20: MOV TL0, #0DFH
+02D2 758CF9            328             MOV TH0, #0F9H
+02D5 D2B0              329             SETB P3.0
+02D7 D28C              330             SETB TR0
+02D9 308DFD            331             JNB TF0, $
+02DC C2B0              332             CLR P3.0
+02DE C28C              333             CLR TR0
+02E0 C28D              334             CLR TF0
+02E2 758AF0            335             MOV TL0, #0F0H
+02E5 758CF9            336             MOV TH0, #0F9H
+02E8 D28C              337             SETB TR0
+02EA B1A6              338             ACALL keyboard
+02EC 308DFD            339             JNB TF0, $
+02EF C28C              340             CLR TR0
+02F1 C28D              341             CLR TF0
+02F3 B50302            342             CJNE A, 3, HERE20
+02F6 80D7              343             SJMP BACK20
+02F8 02000B            344     HERE20: LJMP CHECK_NOTE
+                       345
+02FB B4012D            346     CHECK21:CJNE A, #1, CHECK22
+02FE FB                347             MOV R3,A
+02FF 758A37            348     BACK21: MOV TL0, #37H
+0302 758CFA            349             MOV TH0, #0FAH
+0305 D2B0              350             SETB P3.0
+0307 D28C              351             SETB TR0
+0309 308DFD            352             JNB TF0, $
+030C C2B0              353             CLR P3.0
+030E C28C              354             CLR TR0
+0310 C28D              355             CLR TF0
+0312 758A48            356             MOV TL0, #48H
+0315 758CFA            357             MOV TH0, #0FAH
+0318 D28C              358             SETB TR0
+031A B1A6              359             ACALL keyboard
+031C 308DFD            360             JNB TF0, $
+031F C28C              361             CLR TR0
+0321 C28D              362             CLR TF0
+0323 B50302            363             CJNE A, 3, HERE21
+0326 80D7              364             SJMP BACK21
+0328 02000B            365     HERE21: LJMP CHECK_NOTE
+                       366
+032B B4022D            367     CHECK22:CJNE A, #2, CHECK23
+032E FB                368             MOV R3,A
+032F 758A8A            369     BACK22: MOV TL0, #8AH
+0332 758CFA            370             MOV TH0, #0FAH
+0335 D2B0              371             SETB P3.0
+0337 D28C              372             SETB TR0
+0339 308DFD            373             JNB TF0, $
+033C C2B0              374             CLR P3.0
+033E C28C              375             CLR TR0
+0340 C28D              376             CLR TF0
+0342 758AA1            377             MOV TL0, #0A1H
+0345 758CFA            378             MOV TH0, #0FAH
+0348 D28C              379             SETB TR0
+034A B1A6              380             ACALL keyboard
+034C 308DFD            381             JNB TF0, $
+034F C28C              382             CLR TR0
+0351 C28D              383             CLR TF0
+0353 B50302            384             CJNE A, 3, HERE22
+0356 80D7              385             SJMP BACK22
+0358 02000B            386     HERE22: LJMP CHECK_NOTE
+                       387
+035B B4032D            388     CHECK23:CJNE A, #3, CHECK24
+035E FB                389             MOV R3,A
+035F 758AD9            390     BACK23: MOV TL0, #0D9H
+0362 758CFA            391             MOV TH0, #0FAH
+0365 D2B0              392             SETB P3.0
+0367 D28C              393             SETB TR0
+0369 308DFD            394             JNB TF0, $
+036C C2B0              395             CLR P3.0
+036E C28C              396             CLR TR0
+0370 C28D              397             CLR TF0
+0372 758AEA            398             MOV TL0, #0EAH
+0375 758CFA            399             MOV TH0, #0FAH
+0378 D28C              400             SETB TR0
+037A B1A6              401             ACALL keyboard
+037C 308DFD            402             JNB TF0, $
+037F C28C              403             CLR TR0
+0381 C28D              404             CLR TF0
+0383 B50302            405             CJNE A, 3, HERE23
+0386 80D7              406             SJMP BACK23
+0388 02000B            407     HERE23: LJMP CHECK_NOTE
+                       408
+038B B4042D            409     CHECK24:CJNE A, #4, CHECK25
+038E FB                410             MOV R3,A
+038F 758A23            411     BACK24: MOV TL0, #23H
+0392 758CFB            412             MOV TH0, #0FBH
+0395 D2B0              413             SETB P3.0
+0397 D28C              414             SETB TR0
+0399 308DFD            415             JNB TF0, $
+039C C2B0              416             CLR P3.0
+039E C28C              417             CLR TR0
+03A0 C28D              418             CLR TF0
+03A2 758A34            419             MOV TL0, #34H
+03A5 758CFB            420             MOV TH0, #0FBH
+03A8 D28C              421             SETB TR0
+03AA B1A6              422             ACALL keyboard
+03AC 308DFD            423             JNB TF0, $
+03AF C28C              424             CLR TR0
+03B1 C28D              425             CLR TF0
+03B3 B50302            426             CJNE A, 3, HERE24
+03B6 80D7              427             SJMP BACK24
+03B8 02000B            428     HERE24: LJMP CHECK_NOTE
+                       429
+03BB B4052D            430     CHECK25:CJNE A, #5, CHECK26
+03BE FB                431             MOV R3,A
+03BF 758A69            432     BACK25: MOV TL0, #69H
+03C2 758CFB            433             MOV TH0, #0FBH
+03C5 D2B0              434             SETB P3.0
+03C7 D28C              435             SETB TR0
+03C9 308DFD            436             JNB TF0, $
+03CC C2B0              437             CLR P3.0
+03CE C28C              438             CLR TR0
+03D0 C28D              439             CLR TF0
+03D2 758A88            440             MOV TL0, #88H
+03D5 758CFB            441             MOV TH0, #0FBH
+03D8 D28C              442             SETB TR0
+03DA B1A6              443             ACALL keyboard
+03DC 308DFD            444             JNB TF0, $
+03DF C28C              445             CLR TR0
+03E1 C28D              446             CLR TF0
+03E3 B50302            447             CJNE A, 3, HERE25
+03E6 80D7              448             SJMP BACK25
+03E8 02000B            449     HERE25: LJMP CHECK_NOTE
+                       450
+03EB FB                451     CHECK26:MOV R3,A
+03EC 758AAB            452     BACK26: MOV TL0, #0ABH
+03EF 758CFB            453             MOV TH0, #0FBH
+03F2 D2B0              454             SETB P3.0
+03F4 D28C              455             SETB TR0
+03F6 308DFD            456             JNB TF0, $
+03F9 C2B0              457             CLR P3.0
+03FB C28C              458             CLR TR0
+03FD C28D              459             CLR TF0
+03FF 758ACB            460             MOV TL0, #0CBH
+0402 758CFB            461             MOV TH0, #0FBH
+0405 D28C              462             SETB TR0
+0407 B1A6              463             ACALL keyboard
+0409 308DFD            464             JNB TF0, $
+040C C28C              465             CLR TR0
+040E C28D              466             CLR TF0
+0410 B50302            467             CJNE A, 3, HERE26
+0413 80D7              468             SJMP BACK26
+0415 02000B            469     HERE26: LJMP CHECK_NOTE
+                       470
+                       471
+0418 B4002D            472     ROW3:   CJNE A, #0, CHECK31
+041B FB                473             MOV R3,A
+041C 758AD2            474     BACK30: MOV TL0, #0D2H
+041F 758CF6            475             MOV TH0, #0F6H
+0422 D2B0              476             SETB P3.0
+0424 D28C              477             SETB TR0
+0426 308DFD            478             JNB TF0, $
+0429 C2B0              479             CLR P3.0
+042B C28C              480             CLR TR0
+042D C28D              481             CLR TF0
+042F 758AE3            482             MOV TL0, #0E3H
+0432 758CF6            483             MOV TH0, #0F6H
+0435 D28C              484             SETB TR0
+0437 B1A6              485             ACALL keyboard
+0439 308DFD            486             JNB TF0, $
+043C C28C              487             CLR TR0
+043E C28D              488             CLR TF0
+0440 B50302            489             CJNE A, 3, HERE30
+0443 80D7              490             SJMP BACK30
+0445 02000B            491     HERE30: LJMP CHECK_NOTE
+                       492
+0448 B4012D            493     CHECK31:CJNE A, #1, CHECK32
+044B FB                494             MOV R3,A
+044C 758A5C            495     BACK31: MOV TL0, #5CH
+044F 758CF7            496             MOV TH0, #0F7H
+0452 D2B0              497             SETB P3.0
+0454 D28C              498             SETB TR0
+0456 308DFD            499             JNB TF0, $
+0459 C2B0              500             CLR P3.0
+045B C28C              501             CLR TR0
+045D C28D              502             CLR TF0
+045F 758A6D            503             MOV TL0, #6DH
+0462 758CF7            504             MOV TH0, #0F7H
+0465 D28C              505             SETB TR0
+0467 B1A6              506             ACALL keyboard
+0469 308DFD            507             JNB TF0, $
+046C C28C              508             CLR TR0
+046E C28D              509             CLR TF0
+0470 B50302            510             CJNE A, 3, HERE31
+0473 80D7              511             SJMP BACK31
+0475 02000B            512     HERE31: LJMP CHECK_NOTE
+                       513
+0478 B4022D            514     CHECK32:CJNE A, #2, CHECK33
+047B FB                515             MOV R3,A
+047C 758AD2            516     BACK32: MOV TL0, #0D2H
+047F 758CF7            517             MOV TH0, #0F7H
+0482 D2B0              518             SETB P3.0
+0484 D28C              519             SETB TR0
+0486 308DFD            520             JNB TF0, $
+0489 C2B0              521             CLR P3.0
+048B C28C              522             CLR TR0
+048D C28D              523             CLR TF0
+048F 758AE3            524             MOV TL0, #0E3H
+0492 758CF7            525             MOV TH0, #0F7H
+0495 D28C              526             SETB TR0
+0497 B1A6              527             ACALL keyboard
+0499 308DFD            528             JNB TF0, $
+049C C28C              529             CLR TR0
+049E C28D              530             CLR TF0
+04A0 B50302            531             CJNE A, 3, HERE32
+04A3 80D7              532             SJMP BACK32
+04A5 02000B            533     HERE32: LJMP CHECK_NOTE
+                       534
+04A8 B4032D            535     CHECK33:CJNE A, #3, CHECK34
+04AB FB                536             MOV R3,A
+04AC 758A47            537     BACK33: MOV TL0, #47H
+04AF 758CF8            538             MOV TH0, #0F8H
+04B2 D2B0              539             SETB P3.0
+04B4 D28C              540             SETB TR0
+04B6 308DFD            541             JNB TF0, $
+04B9 C2B0              542             CLR P3.0
+04BB C28C              543             CLR TR0
+04BD C28D              544             CLR TF0
+04BF 758A58            545             MOV TL0, #58H
+04C2 758CF8            546             MOV TH0, #0F8H
+04C5 D28C              547             SETB TR0
+04C7 B1A6              548             ACALL keyboard
+04C9 308DFD            549             JNB TF0, $
+04CC C28C              550             CLR TR0
+04CE C28D              551             CLR TF0
+04D0 B50302            552             CJNE A, 3, HERE33
+04D3 80D7              553             SJMP BACK33
+04D5 02000B            554     HERE33: LJMP CHECK_NOTE
+                       555
+04D8 B4042D            556     CHECK34:CJNE A, #4, CHECK35
+04DB FB                557             MOV R3,A
+04DC 758AB6            558     BACK34: MOV TL0, #0B6H
+04DF 758CF8            559             MOV TH0, #0F8H
+04E2 D2B0              560             SETB P3.0
+04E4 D28C              561             SETB TR0
+04E6 308DFD            562             JNB TF0, $
+04E9 C2B0              563             CLR P3.0
+04EB C28C              564             CLR TR0
+04ED C28D              565             CLR TF0
+04EF 758AC7            566             MOV TL0, #0C7H
+04F2 758CF8            567             MOV TH0, #0F8H
+04F5 D28C              568             SETB TR0
+04F7 B1A6              569             ACALL keyboard
+04F9 308DFD            570             JNB TF0, $
+04FC C28C              571             CLR TR0
+04FE C28D              572             CLR TF0
+0500 B50302            573             CJNE A, 3, HERE34
+0503 80D7              574             SJMP BACK34
+0505 02000B            575     HERE34: LJMP CHECK_NOTE
+                       576
+0508 B4052D            577     CHECK35:CJNE A, #5, CHECK36
+050B FB                578             MOV R3,A
+050C 758A1E            579     BACK35: MOV TL0, #1EH
+050F 758CF9            580             MOV TH0, #0F9H
+0512 D2B0              581             SETB P3.0
+0514 D28C              582             SETB TR0
+0516 308DFD            583             JNB TF0, $
+0519 C2B0              584             CLR P3.0
+051B C28C              585             CLR TR0
+051D C28D              586             CLR TF0
+051F 758A2F            587             MOV TL0, #2FH
+0522 758CF9            588             MOV TH0, #0F9H
+0525 D28C              589             SETB TR0
+0527 B1A6              590             ACALL keyboard
+0529 308DFD            591             JNB TF0, $
+052C C28C              592             CLR TR0
+052E C28D              593             CLR TF0
+0530 B50302            594             CJNE A, 3, HERE35
+0533 80D7              595             SJMP BACK35
+0535 02000B            596     HERE35: LJMP CHECK_NOTE
+                       597
+0538 FB                598     CHECK36:MOV R3,A
+0539 758A85            599     BACK36: MOV TL0, #85H
+053C 758CF9            600             MOV TH0, #0F9H
+053F D2B0              601             SETB P3.0
+0541 D28C              602             SETB TR0
+0543 308DFD            603             JNB TF0, $
+0546 C2B0              604             CLR P3.0
+0548 C28C              605             CLR TR0
+054A C28D              606             CLR TF0
+054C 758A96            607             MOV TL0, #96H
+054F 758CF9            608             MOV TH0, #0F9H
+0552 D28C              609             SETB TR0
+0554 B1A6              610             ACALL keyboard
+0556 308DFD            611             JNB TF0, $
+0559 C28C              612             CLR TR0
+055B C28D              613             CLR TF0
+055D B50302            614             CJNE A, 3, HERE36
+0560 80D7              615             SJMP BACK36
+0562 02000B            616     HERE36: LJMP CHECK_NOTE
+                       617
+                       618
+                       619
+0565 22                620     RETURN: RET
+                       621
+                       622
+                       623
+                       624
+                       625     CONFIGURE_LCD:  ;THIS SUBROUTINE SENDS THE INITIALIZATION COMMANDS TO THE LCD
+0566 7438              626             mov a,#38H      ;TWO LINES, 5X7 MATRIX
+0568 B17B              627             acall SEND_COMMAND
+056A 740F              628             mov a,#0FH      ;DISPLAY ON, CURSOR BLINKING
+056C B17B              629             acall SEND_COMMAND
+056E 7406              630             mov a,#06H      ;INCREMENT CURSOR (SHIFT CURSOR TO RIGHT)
+0570 B17B              631             acall SEND_COMMAND
+0572 7401              632             mov a,#01H      ;CLEAR DISPLAY SCREEN
+0574 B17B              633             acall SEND_COMMAND
+0576 7480              634             mov a,#80H      ;FORCE CURSOR TO BEGINNING OF THE FIRST LINE
+0578 B17B              635             acall SEND_COMMAND
+057A 22                636             ret
+                       637
+                       638
+                       639
+                       640     SEND_COMMAND:
+057B F5A0              641             mov p2,a                ;THE COMMAND IS STORED IN A, SEND IT TO LCD
+057D C2B5              642             clr p3.5                ;RS=0 BEFORE SENDING COMMAND
+057F C2B6              643             clr p3.6                ;R/W=0 TO WRITE
+0581 D2B7              644             setb p3.7       ;SEND A HIGH TO LOW SIGNAL TO ENABLE PIN
+0583 B195              645             acall DELAY
+0585 C2B7              646             clr p3.7
+0587 22                647             ret
+                       648
+                       649
+                       650     SEND_DATA:
+0588 F5A0              651             mov p2,a                ;SEND THE DATA STORED IN A TO LCD
+058A D2B5              652             setb p3.5       ;RS=1 BEFORE SENDING DATA
+058C C2B6              653             clr p3.6                ;R/W=0 TO WRITE
+058E D2B7              654             setb p3.7       ;SEND A HIGH TO LOW SIGNAL TO ENABLE PIN
+0590 B195              655             acall DELAY
+0592 C2B7              656             clr p3.7
+0594 22                657             ret
+                       658
+                       659
+                       660     DELAY:
+0595 C000              661             push 0
+0597 C001              662             push 1
+0599 7832              663             mov r0,#50
+                       664     DELAY_OUTER_LOOP:
+059B 79FF              665             mov r1,#255
+059D D9FE              666             djnz r1,$
+059F D8FA              667             djnz r0,DELAY_OUTER_LOOP
+05A1 D001              668             pop 1
+05A3 D000              669             pop 0
+05A5 22                670             ret
+                       671
+                       672
+                       673     KEYBOARD: ;takes the key pressed from the keyboard and puts it to A
+05A6 7580FF            674             mov     P0, #0ffh       ;makes P0 input
+                       675
+                       676     KB_OVER1:
+05A9 7590FE            677             mov     P1, #11111110B
+05AC E580              678             mov     A, P0
+05AE 547F              679             anl     A, #01111111B
+05B0 B47F21            680             cjne    A, #01111111B, ROW_0
+05B3 7590FD            681             mov     P1, #11111101B
+05B6 E580              682             mov     A, P0
+05B8 547F              683             anl     A, #01111111B
+05BA B47F1B            684             cjne    A, #01111111B, ROW_1
+05BD 7590FB            685             mov     P1, #11111011B
+05C0 E580              686             mov     A, P0
+05C2 547F              687             anl     A, #01111111B
+05C4 B47F15            688             cjne    A, #01111111B, ROW_2
+05C7 7590F7            689             mov     P1, #11110111B
+05CA E580              690             mov     A, P0
+05CC 547F              691             anl     A, #01111111B
+05CE B47F0F            692             cjne    A, #01111111B, ROW_3
+05D1 0205EA            693             ljmp    retur
+                       694
+                       695     ROW_0:
+05D4 7A00              696             MOV R2, #00
+05D6 800A              697             sjmp    KB_FIND
+                       698     ROW_1:
+05D8 7A07              699             MOV R2, #7
+05DA 8006              700             sjmp    KB_FIND
+                       701     ROW_2:
+05DC 7A0E              702             MOV R2, #14
+05DE 8002              703             sjmp    KB_FIND
+                       704     ROW_3:
+05E0 7A15              705             MOV R2, #21
+                       706     KB_FIND:
+05E2 23                707             RL      A
+05E3 30E703            708             JNB ACC.7,KB_MATCH
+05E6 0A                709             inc     R2
+05E7 80F9              710             sjmp    KB_FIND
+                       711     KB_MATCH:
+05E9 EA                712             MOV A,R2
+05EA 22                713     retur:  ret
+                       714
+                       715
+                       716     END
+ASSEMBLY COMPLETE, NO ERRORS FOUND, NO WARNINGS
+
+
+SYMBOL TABLE:
+??MCU_8051_IDE . . . . . . . . . . .  N  NUMB  8051H  NOT USED
+??VERSION. . . . . . . . . . . . . .  N  NUMB  0147H  NOT USED
+AC . . . . . . . . . . . . . . . . .  B  ADDR  00D6H  NOT USED
+ACC. . . . . . . . . . . . . . . . .  D  ADDR  00E0H
+ACSR . . . . . . . . . . . . . . . .  D  ADDR  0097H  NOT USED
+ADCF . . . . . . . . . . . . . . . .  D  ADDR  00F6H  NOT USED
+ADCLK. . . . . . . . . . . . . . . .  D  ADDR  00F2H  NOT USED
+ADCON. . . . . . . . . . . . . . . .  D  ADDR  00F3H  NOT USED
+ADDH . . . . . . . . . . . . . . . .  D  ADDR  00F5H  NOT USED
+ADDL . . . . . . . . . . . . . . . .  D  ADDR  00F4H  NOT USED
+AUXR . . . . . . . . . . . . . . . .  D  ADDR  008EH  NOT USED
+AUXR1. . . . . . . . . . . . . . . .  D  ADDR  00A2H  NOT USED
+B. . . . . . . . . . . . . . . . . .  D  ADDR  00F0H
+BACK00 . . . . . . . . . . . . . . .  C  ADDR  0035H
+BACK01 . . . . . . . . . . . . . . .  C  ADDR  0065H
+BACK02 . . . . . . . . . . . . . . .  C  ADDR  0095H
+BACK03 . . . . . . . . . . . . . . .  C  ADDR  00C5H
+BACK04 . . . . . . . . . . . . . . .  C  ADDR  00F5H
+BACK05 . . . . . . . . . . . . . . .  C  ADDR  0125H
+BACK06 . . . . . . . . . . . . . . .  C  ADDR  0152H
+BACK10 . . . . . . . . . . . . . . .  C  ADDR  0182H
+BACK11 . . . . . . . . . . . . . . .  C  ADDR  01B2H
+BACK12 . . . . . . . . . . . . . . .  C  ADDR  01E2H
+BACK13 . . . . . . . . . . . . . . .  C  ADDR  0212H
+BACK14 . . . . . . . . . . . . . . .  C  ADDR  0242H
+BACK15 . . . . . . . . . . . . . . .  C  ADDR  0272H
+BACK16 . . . . . . . . . . . . . . .  C  ADDR  029FH
+BACK20 . . . . . . . . . . . . . . .  C  ADDR  02CFH
+BACK21 . . . . . . . . . . . . . . .  C  ADDR  02FFH
+BACK22 . . . . . . . . . . . . . . .  C  ADDR  032FH
+BACK23 . . . . . . . . . . . . . . .  C  ADDR  035FH
+BACK24 . . . . . . . . . . . . . . .  C  ADDR  038FH
+BACK25 . . . . . . . . . . . . . . .  C  ADDR  03BFH
+BACK26 . . . . . . . . . . . . . . .  C  ADDR  03ECH
+BACK30 . . . . . . . . . . . . . . .  C  ADDR  041CH
+BACK31 . . . . . . . . . . . . . . .  C  ADDR  044CH
+BACK32 . . . . . . . . . . . . . . .  C  ADDR  047CH
+BACK33 . . . . . . . . . . . . . . .  C  ADDR  04ACH
+BACK34 . . . . . . . . . . . . . . .  C  ADDR  04DCH
+BACK35 . . . . . . . . . . . . . . .  C  ADDR  050CH
+BACK36 . . . . . . . . . . . . . . .  C  ADDR  0539H
+BDRCON . . . . . . . . . . . . . . .  D  ADDR  009BH  NOT USED
+BDRCON_1 . . . . . . . . . . . . . .  D  ADDR  009CH  NOT USED
+BRL. . . . . . . . . . . . . . . . .  D  ADDR  009AH  NOT USED
+CCAP0H . . . . . . . . . . . . . . .  D  ADDR  00FAH  NOT USED
+CCAP0L . . . . . . . . . . . . . . .  D  ADDR  00EAH  NOT USED
+CCAP1H . . . . . . . . . . . . . . .  D  ADDR  00FBH  NOT USED
+CCAP1L . . . . . . . . . . . . . . .  D  ADDR  00EBH  NOT USED
+CCAP2H . . . . . . . . . . . . . . .  D  ADDR  00FCH  NOT USED
+CCAP3H . . . . . . . . . . . . . . .  D  ADDR  00FDH  NOT USED
+CCAP4H . . . . . . . . . . . . . . .  D  ADDR  00FEH  NOT USED
+CCAPL2H. . . . . . . . . . . . . . .  D  ADDR  00FCH  NOT USED
+CCAPL2L. . . . . . . . . . . . . . .  D  ADDR  00ECH  NOT USED
+CCAPL3H. . . . . . . . . . . . . . .  D  ADDR  00FDH  NOT USED
+CCAPL3L. . . . . . . . . . . . . . .  D  ADDR  00EDH  NOT USED
+CCAPL4H. . . . . . . . . . . . . . .  D  ADDR  00FEH  NOT USED
+CCAPL4L. . . . . . . . . . . . . . .  D  ADDR  00EEH  NOT USED
+CCAPM0 . . . . . . . . . . . . . . .  D  ADDR  00DAH  NOT USED
+CCAPM1 . . . . . . . . . . . . . . .  D  ADDR  00DBH  NOT USED
+CCAPM2 . . . . . . . . . . . . . . .  D  ADDR  00DCH  NOT USED
+CCAPM3 . . . . . . . . . . . . . . .  D  ADDR  00DDH  NOT USED
+CCAPM4 . . . . . . . . . . . . . . .  D  ADDR  00DEH  NOT USED
+CCF0 . . . . . . . . . . . . . . . .  B  ADDR  00D8H  NOT USED
+CCF1 . . . . . . . . . . . . . . . .  B  ADDR  00D9H  NOT USED
+CCF2 . . . . . . . . . . . . . . . .  B  ADDR  00DAH  NOT USED
+CCF3 . . . . . . . . . . . . . . . .  B  ADDR  00DBH  NOT USED
+CCF4 . . . . . . . . . . . . . . . .  B  ADDR  00DCH  NOT USED
+CCON . . . . . . . . . . . . . . . .  D  ADDR  00D8H  NOT USED
+CFINT. . . . . . . . . . . . . . . .  C  ADDR  0033H  NOT USED
+CH . . . . . . . . . . . . . . . . .  D  ADDR  00F9H  NOT USED
+CHECK01. . . . . . . . . . . . . . .  C  ADDR  0061H
+CHECK02. . . . . . . . . . . . . . .  C  ADDR  0091H
+CHECK03. . . . . . . . . . . . . . .  C  ADDR  00C1H
+CHECK04. . . . . . . . . . . . . . .  C  ADDR  00F1H
+CHECK05. . . . . . . . . . . . . . .  C  ADDR  0121H
+CHECK06. . . . . . . . . . . . . . .  C  ADDR  0151H
+CHECK1 . . . . . . . . . . . . . . .  C  ADDR  001CH
+CHECK11. . . . . . . . . . . . . . .  C  ADDR  01AEH
+CHECK12. . . . . . . . . . . . . . .  C  ADDR  01DEH
+CHECK13. . . . . . . . . . . . . . .  C  ADDR  020EH
+CHECK14. . . . . . . . . . . . . . .  C  ADDR  023EH
+CHECK15. . . . . . . . . . . . . . .  C  ADDR  026EH
+CHECK16. . . . . . . . . . . . . . .  C  ADDR  029EH
+CHECK2 . . . . . . . . . . . . . . .  C  ADDR  0024H
+CHECK21. . . . . . . . . . . . . . .  C  ADDR  02FBH
+CHECK22. . . . . . . . . . . . . . .  C  ADDR  032BH
+CHECK23. . . . . . . . . . . . . . .  C  ADDR  035BH
+CHECK24. . . . . . . . . . . . . . .  C  ADDR  038BH
+CHECK25. . . . . . . . . . . . . . .  C  ADDR  03BBH
+CHECK26. . . . . . . . . . . . . . .  C  ADDR  03EBH
+CHECK3 . . . . . . . . . . . . . . .  C  ADDR  002CH
+CHECK31. . . . . . . . . . . . . . .  C  ADDR  0448H
+CHECK32. . . . . . . . . . . . . . .  C  ADDR  0478H
+CHECK33. . . . . . . . . . . . . . .  C  ADDR  04A8H
+CHECK34. . . . . . . . . . . . . . .  C  ADDR  04D8H
+CHECK35. . . . . . . . . . . . . . .  C  ADDR  0508H
+CHECK36. . . . . . . . . . . . . . .  C  ADDR  0538H
+CHECK_NOTE . . . . . . . . . . . . .  C  ADDR  000BH
+CKCON. . . . . . . . . . . . . . . .  D  ADDR  008FH  NOT USED
+CKCON0 . . . . . . . . . . . . . . .  D  ADDR  008FH  NOT USED
+CKRL . . . . . . . . . . . . . . . .  D  ADDR  0097H  NOT USED
+CKSEL. . . . . . . . . . . . . . . .  D  ADDR  0085H  NOT USED
+CL . . . . . . . . . . . . . . . . .  D  ADDR  00E9H  NOT USED
+CLKREG . . . . . . . . . . . . . . .  D  ADDR  008FH  NOT USED
+CMOD . . . . . . . . . . . . . . . .  D  ADDR  00D9H  NOT USED
+CONFIGURE_LCD. . . . . . . . . . . .  C  ADDR  0566H
+CPRL2. . . . . . . . . . . . . . . .  B  ADDR  00C8H  NOT USED
+CR . . . . . . . . . . . . . . . . .  B  ADDR  00DEH  NOT USED
+CT2. . . . . . . . . . . . . . . . .  B  ADDR  00C9H  NOT USED
+CY . . . . . . . . . . . . . . . . .  B  ADDR  00D7H  NOT USED
+DELAY. . . . . . . . . . . . . . . .  C  ADDR  0595H
+DELAY_OUTER_LOOP . . . . . . . . . .  C  ADDR  059BH
+DP0H . . . . . . . . . . . . . . . .  D  ADDR  0083H  NOT USED
+DP0L . . . . . . . . . . . . . . . .  D  ADDR  0082H  NOT USED
+DP1H . . . . . . . . . . . . . . . .  D  ADDR  0085H  NOT USED
+DP1L . . . . . . . . . . . . . . . .  D  ADDR  0084H  NOT USED
+DPH. . . . . . . . . . . . . . . . .  D  ADDR  0083H  NOT USED
+DPL. . . . . . . . . . . . . . . . .  D  ADDR  0082H  NOT USED
+EA . . . . . . . . . . . . . . . . .  B  ADDR  00AFH  NOT USED
+EC . . . . . . . . . . . . . . . . .  B  ADDR  00AEH  NOT USED
+EECON. . . . . . . . . . . . . . . .  D  ADDR  0096H  NOT USED
+ES . . . . . . . . . . . . . . . . .  B  ADDR  00ACH  NOT USED
+ET0. . . . . . . . . . . . . . . . .  B  ADDR  00A9H  NOT USED
+ET1. . . . . . . . . . . . . . . . .  B  ADDR  00ABH  NOT USED
+ET2. . . . . . . . . . . . . . . . .  B  ADDR  00ADH  NOT USED
+EX0. . . . . . . . . . . . . . . . .  B  ADDR  00A8H  NOT USED
+EX1. . . . . . . . . . . . . . . . .  B  ADDR  00AAH  NOT USED
+EXEN2. . . . . . . . . . . . . . . .  B  ADDR  00CBH  NOT USED
+EXF2 . . . . . . . . . . . . . . . .  B  ADDR  00CEH  NOT USED
+EXTI0. . . . . . . . . . . . . . . .  C  ADDR  0003H  NOT USED
+EXTI1. . . . . . . . . . . . . . . .  C  ADDR  0013H  NOT USED
+F0 . . . . . . . . . . . . . . . . .  B  ADDR  00D5H  NOT USED
+FE . . . . . . . . . . . . . . . . .  B  ADDR  009FH  NOT USED
+HERE00 . . . . . . . . . . . . . . .  C  ADDR  005EH
+HERE01 . . . . . . . . . . . . . . .  C  ADDR  008EH
+HERE02 . . . . . . . . . . . . . . .  C  ADDR  00BEH
+HERE03 . . . . . . . . . . . . . . .  C  ADDR  00EEH
+HERE04 . . . . . . . . . . . . . . .  C  ADDR  011EH
+HERE05 . . . . . . . . . . . . . . .  C  ADDR  014EH
+HERE06 . . . . . . . . . . . . . . .  C  ADDR  017BH
+HERE10 . . . . . . . . . . . . . . .  C  ADDR  01ABH
+HERE11 . . . . . . . . . . . . . . .  C  ADDR  01DBH
+HERE12 . . . . . . . . . . . . . . .  C  ADDR  020BH
+HERE13 . . . . . . . . . . . . . . .  C  ADDR  023BH
+HERE14 . . . . . . . . . . . . . . .  C  ADDR  026BH
+HERE15 . . . . . . . . . . . . . . .  C  ADDR  029BH
+HERE16 . . . . . . . . . . . . . . .  C  ADDR  02C8H
+HERE20 . . . . . . . . . . . . . . .  C  ADDR  02F8H
+HERE21 . . . . . . . . . . . . . . .  C  ADDR  0328H
+HERE22 . . . . . . . . . . . . . . .  C  ADDR  0358H
+HERE23 . . . . . . . . . . . . . . .  C  ADDR  0388H
+HERE24 . . . . . . . . . . . . . . .  C  ADDR  03B8H
+HERE25 . . . . . . . . . . . . . . .  C  ADDR  03E8H
+HERE26 . . . . . . . . . . . . . . .  C  ADDR  0415H
+HERE30 . . . . . . . . . . . . . . .  C  ADDR  0445H
+HERE31 . . . . . . . . . . . . . . .  C  ADDR  0475H
+HERE32 . . . . . . . . . . . . . . .  C  ADDR  04A5H
+HERE33 . . . . . . . . . . . . . . .  C  ADDR  04D5H
+HERE34 . . . . . . . . . . . . . . .  C  ADDR  0505H
+HERE35 . . . . . . . . . . . . . . .  C  ADDR  0535H
+HERE36 . . . . . . . . . . . . . . .  C  ADDR  0562H
+IE . . . . . . . . . . . . . . . . .  D  ADDR  00A8H  NOT USED
+IE0. . . . . . . . . . . . . . . . .  B  ADDR  0089H  NOT USED
+IE1. . . . . . . . . . . . . . . . .  B  ADDR  008BH  NOT USED
+INT0 . . . . . . . . . . . . . . . .  B  ADDR  00B2H  NOT USED
+INT1 . . . . . . . . . . . . . . . .  B  ADDR  00B3H  NOT USED
+IP . . . . . . . . . . . . . . . . .  D  ADDR  00B8H  NOT USED
+IPH. . . . . . . . . . . . . . . . .  D  ADDR  00B7H  NOT USED
+IPH0 . . . . . . . . . . . . . . . .  D  ADDR  00B7H  NOT USED
+IPH1 . . . . . . . . . . . . . . . .  D  ADDR  00B3H  NOT USED
+IPL0 . . . . . . . . . . . . . . . .  D  ADDR  00B8H  NOT USED
+IPL1 . . . . . . . . . . . . . . . .  D  ADDR  00B2H  NOT USED
+IT0. . . . . . . . . . . . . . . . .  B  ADDR  0088H  NOT USED
+IT1. . . . . . . . . . . . . . . . .  B  ADDR  008AH  NOT USED
+KBE. . . . . . . . . . . . . . . . .  D  ADDR  009DH  NOT USED
+KBF. . . . . . . . . . . . . . . . .  D  ADDR  009EH  NOT USED
+KBLS . . . . . . . . . . . . . . . .  D  ADDR  009CH  NOT USED
+KB_FIND. . . . . . . . . . . . . . .  C  ADDR  05E2H
+KB_MATCH . . . . . . . . . . . . . .  C  ADDR  05E9H
+KB_OVER1 . . . . . . . . . . . . . .  C  ADDR  05A9H  NOT USED
+KEYBOARD . . . . . . . . . . . . . .  C  ADDR  05A6H
+KEYBOARD_LOOP. . . . . . . . . . . .  C  ADDR  0005H
+OK . . . . . . . . . . . . . . . . .  C  ADDR  0011H
+OSCCON . . . . . . . . . . . . . . .  D  ADDR  0086H  NOT USED
+OV . . . . . . . . . . . . . . . . .  B  ADDR  00D2H  NOT USED
+P. . . . . . . . . . . . . . . . . .  B  ADDR  00D0H  NOT USED
+P0 . . . . . . . . . . . . . . . . .  D  ADDR  0080H
+P1 . . . . . . . . . . . . . . . . .  D  ADDR  0090H
+P1M1 . . . . . . . . . . . . . . . .  D  ADDR  00D4H  NOT USED
+P1M2 . . . . . . . . . . . . . . . .  D  ADDR  00E2H  NOT USED
+P2 . . . . . . . . . . . . . . . . .  D  ADDR  00A0H
+P3 . . . . . . . . . . . . . . . . .  D  ADDR  00B0H
+P3M1 . . . . . . . . . . . . . . . .  D  ADDR  00D5H  NOT USED
+P3M2 . . . . . . . . . . . . . . . .  D  ADDR  00E3H  NOT USED
+P4 . . . . . . . . . . . . . . . . .  D  ADDR  00C0H  NOT USED
+P4M1 . . . . . . . . . . . . . . . .  D  ADDR  00D6H  NOT USED
+P4M2 . . . . . . . . . . . . . . . .  D  ADDR  00E4H  NOT USED
+P5 . . . . . . . . . . . . . . . . .  D  ADDR  00E8H  NOT USED
+PC . . . . . . . . . . . . . . . . .  B  ADDR  00BEH  NOT USED
+PCON . . . . . . . . . . . . . . . .  D  ADDR  0087H  NOT USED
+PPCL . . . . . . . . . . . . . . . .  B  ADDR  00BEH  NOT USED
+PS . . . . . . . . . . . . . . . . .  B  ADDR  00BCH  NOT USED
+PSL. . . . . . . . . . . . . . . . .  B  ADDR  00BCH  NOT USED
+PSW. . . . . . . . . . . . . . . . .  D  ADDR  00D0H  NOT USED
+PT0. . . . . . . . . . . . . . . . .  B  ADDR  00B9H  NOT USED
+PT0L . . . . . . . . . . . . . . . .  B  ADDR  00B9H  NOT USED
+PT1. . . . . . . . . . . . . . . . .  B  ADDR  00BBH  NOT USED
+PT1L . . . . . . . . . . . . . . . .  B  ADDR  00BBH  NOT USED
+PT2. . . . . . . . . . . . . . . . .  B  ADDR  00BDH  NOT USED
+PT2L . . . . . . . . . . . . . . . .  B  ADDR  00BDH  NOT USED
+PX0. . . . . . . . . . . . . . . . .  B  ADDR  00B8H  NOT USED
+PX0L . . . . . . . . . . . . . . . .  B  ADDR  00B8H  NOT USED
+PX1. . . . . . . . . . . . . . . . .  B  ADDR  00BAH  NOT USED
+PX1L . . . . . . . . . . . . . . . .  B  ADDR  00BAH  NOT USED
+RB8. . . . . . . . . . . . . . . . .  B  ADDR  009AH  NOT USED
+RCAP2H . . . . . . . . . . . . . . .  D  ADDR  00CBH  NOT USED
+RCAP2L . . . . . . . . . . . . . . .  D  ADDR  00CAH  NOT USED
+RCLK . . . . . . . . . . . . . . . .  B  ADDR  00CDH  NOT USED
+RD . . . . . . . . . . . . . . . . .  B  ADDR  00B7H  NOT USED
+REN. . . . . . . . . . . . . . . . .  B  ADDR  009CH  NOT USED
+RESET. . . . . . . . . . . . . . . .  C  ADDR  0000H  NOT USED
+RETUR. . . . . . . . . . . . . . . .  C  ADDR  05EAH
+RETURN . . . . . . . . . . . . . . .  C  ADDR  0565H
+RI . . . . . . . . . . . . . . . . .  B  ADDR  0098H  NOT USED
+ROW0 . . . . . . . . . . . . . . . .  C  ADDR  0031H
+ROW1 . . . . . . . . . . . . . . . .  C  ADDR  017EH
+ROW2 . . . . . . . . . . . . . . . .  C  ADDR  02CBH
+ROW3 . . . . . . . . . . . . . . . .  C  ADDR  0418H
+ROW_0. . . . . . . . . . . . . . . .  C  ADDR  05D4H
+ROW_1. . . . . . . . . . . . . . . .  C  ADDR  05D8H
+ROW_2. . . . . . . . . . . . . . . .  C  ADDR  05DCH
+ROW_3. . . . . . . . . . . . . . . .  C  ADDR  05E0H
+RS0. . . . . . . . . . . . . . . . .  B  ADDR  00D3H  NOT USED
+RS1. . . . . . . . . . . . . . . . .  B  ADDR  00D4H  NOT USED
+RXD. . . . . . . . . . . . . . . . .  B  ADDR  00B0H  NOT USED
+SADDR. . . . . . . . . . . . . . . .  D  ADDR  00A9H  NOT USED
+SADDR_0. . . . . . . . . . . . . . .  D  ADDR  00A9H  NOT USED
+SADDR_1. . . . . . . . . . . . . . .  D  ADDR  00AAH  NOT USED
+SADEN. . . . . . . . . . . . . . . .  D  ADDR  00B9H  NOT USED
+SADEN_0. . . . . . . . . . . . . . .  D  ADDR  00B9H  NOT USED
+SADEN_1. . . . . . . . . . . . . . .  D  ADDR  00BAH  NOT USED
+SBUF . . . . . . . . . . . . . . . .  D  ADDR  0099H  NOT USED
+SCON . . . . . . . . . . . . . . . .  D  ADDR  0098H  NOT USED
+SEND_COMMAND . . . . . . . . . . . .  C  ADDR  057BH
+SEND_DATA. . . . . . . . . . . . . .  C  ADDR  0588H  NOT USED
+SINT . . . . . . . . . . . . . . . .  C  ADDR  0023H  NOT USED
+SM0. . . . . . . . . . . . . . . . .  B  ADDR  009FH  NOT USED
+SM1. . . . . . . . . . . . . . . . .  B  ADDR  009EH  NOT USED
+SM2. . . . . . . . . . . . . . . . .  B  ADDR  009DH  NOT USED
+SP . . . . . . . . . . . . . . . . .  D  ADDR  0081H  NOT USED
+SPCON. . . . . . . . . . . . . . . .  D  ADDR  00C3H  NOT USED
+SPCR . . . . . . . . . . . . . . . .  D  ADDR  00D5H  NOT USED
+SPDAT. . . . . . . . . . . . . . . .  D  ADDR  00C5H  NOT USED
+SPDR . . . . . . . . . . . . . . . .  D  ADDR  0086H  NOT USED
+SPSR . . . . . . . . . . . . . . . .  D  ADDR  00AAH  NOT USED
+SPSTA. . . . . . . . . . . . . . . .  D  ADDR  00C4H  NOT USED
+T0 . . . . . . . . . . . . . . . . .  B  ADDR  00B4H  NOT USED
+T1 . . . . . . . . . . . . . . . . .  B  ADDR  00B5H  NOT USED
+T2CON. . . . . . . . . . . . . . . .  D  ADDR  00C8H  NOT USED
+T2MOD. . . . . . . . . . . . . . . .  D  ADDR  00C9H  NOT USED
+TB8. . . . . . . . . . . . . . . . .  B  ADDR  009BH  NOT USED
+TCLK . . . . . . . . . . . . . . . .  B  ADDR  00CCH  NOT USED
+TCON . . . . . . . . . . . . . . . .  D  ADDR  0088H  NOT USED
+TF0. . . . . . . . . . . . . . . . .  B  ADDR  008DH
+TF1. . . . . . . . . . . . . . . . .  B  ADDR  008FH  NOT USED
+TF2. . . . . . . . . . . . . . . . .  B  ADDR  00CFH  NOT USED
+TH0. . . . . . . . . . . . . . . . .  D  ADDR  008CH
+TH1. . . . . . . . . . . . . . . . .  D  ADDR  008DH  NOT USED
+TH2. . . . . . . . . . . . . . . . .  D  ADDR  00CDH  NOT USED
+TI . . . . . . . . . . . . . . . . .  B  ADDR  0099H  NOT USED
+TIMER0 . . . . . . . . . . . . . . .  C  ADDR  000BH  NOT USED
+TIMER1 . . . . . . . . . . . . . . .  C  ADDR  001BH  NOT USED
+TIMER2 . . . . . . . . . . . . . . .  C  ADDR  002BH  NOT USED
+TL0. . . . . . . . . . . . . . . . .  D  ADDR  008AH
+TL1. . . . . . . . . . . . . . . . .  D  ADDR  008BH  NOT USED
+TL2. . . . . . . . . . . . . . . . .  D  ADDR  00CCH  NOT USED
+TMOD . . . . . . . . . . . . . . . .  D  ADDR  0089H
+TR0. . . . . . . . . . . . . . . . .  B  ADDR  008CH
+TR1. . . . . . . . . . . . . . . . .  B  ADDR  008EH  NOT USED
+TR2. . . . . . . . . . . . . . . . .  B  ADDR  00CAH  NOT USED
+TXD. . . . . . . . . . . . . . . . .  B  ADDR  00B1H  NOT USED
+WDTCON . . . . . . . . . . . . . . .  D  ADDR  00A7H  NOT USED
+WDTPRG . . . . . . . . . . . . . . .  D  ADDR  00A7H  NOT USED
+WDTRST . . . . . . . . . . . . . . .  D  ADDR  00A6H  NOT USED
+WR . . . . . . . . . . . . . . . . .  B  ADDR  00B6H  NOT USED
